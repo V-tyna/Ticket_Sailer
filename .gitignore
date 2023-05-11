@@ -1,0 +1,5 @@
+.vscode
+
+auth/node_modules
+
+auth/Dockerfile
