@@ -19,9 +19,9 @@ signUpRouter.post('/api/users/signup', signUpValidators,
 
     console.log('User created..');
     throw new DatabaseConnectionError();
-    // res.send({});
 
     // new User({ email, password });
+    // res.send({});
   });
 
 export default signUpRouter;
