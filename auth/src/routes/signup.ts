@@ -1,8 +1,8 @@
 import { Router, Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 
-import { DatabaseConnectionError } from '../models/errors/database-connection-error';
-import { RequestValidationError } from '../models/errors/request-validation-error';
+import { DatabaseConnectionError } from '../errors/database-connection-error';
+import { RequestValidationError } from '../errors/request-validation-error';
 import { signUpValidators } from '../utils/route-validators';
 
 const signUpRouter = Router();

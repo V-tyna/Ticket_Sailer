@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 
 import { keys } from './configs/keys.index';
 import { errorHandler } from './middlewares/error-handler';
-import { NotFoundError } from './models/errors/not-found-error';
+import { NotFoundError } from './errors/not-found-error';
 import currentUserRouter from './routes/current-user';
 import signInRouter from './routes/signin';
 import signOutRouter from './routes/signout';
