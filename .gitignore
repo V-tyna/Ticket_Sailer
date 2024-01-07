@@ -3,5 +3,3 @@
 auth/node_modules
 
 auth/Dockerfile
-
-/node_modules
