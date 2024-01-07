@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@types/cookie-session": "^2.0.44",
-    "cookie-session": "^2.0.0"
-  }
-}

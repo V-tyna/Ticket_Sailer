@@ -1,19 +1,7 @@
-import { Document, Model, model, Schema } from 'mongoose';
-import { Password } from '../../services/password';
+import { model, Schema } from 'mongoose';
 
-interface UserAttrs {
-  email: string;
-  password: string;
-}
-
-interface UserModel extends Model<UserDoc> {
-  build(attrs: UserAttrs): UserDoc
-}
-
-interface UserDoc extends Document {
-  email: string;
-  password: string;
-}
+import { PasswordManager } from '../../services/password-manager';
+import { UserAttrs, UserDoc, UserModel } from '../interfaces/user';
 
 const userSchema = new Schema({
   email: {
@@ -23,12 +11,22 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true
-  }
-});
+  },
+},
+  {
+    toJSON: {
+      transform(doc: any, ret: any) {
+        ret.id = ret._id;
+        delete ret.password;
+        delete ret._id;
+        delete ret.__v;
+      }
+    }
+  });
 
 userSchema.pre('save', async function (done) {
   if (this.isModified('password')) {
-    const hashed = await Password.toHash(this.get('password'));
+    const hashed = await PasswordManager.toHash(this.get('password'));
     this.set('password', hashed);
   }
   done();

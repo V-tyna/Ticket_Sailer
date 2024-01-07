@@ -9,3 +9,13 @@ export const signUpValidators = [
     .isLength({ min: 5, max: 20 })
     .withMessage('Password must be between 5 and 20 characters.'),
 ];
+
+export const signInValidators = [
+  body('email')
+    .isEmail()
+    .withMessage('Email must be valid'),
+  body('password')
+    .trim()
+    .notEmpty()
+    .withMessage('Password must be supplied.'),
+]

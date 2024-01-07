@@ -2,14 +2,14 @@ import express from 'express';
 import 'express-async-errors';
 import mongoose from 'mongoose';
 
+import cookieSession from 'cookie-session';
 import { keys } from './configs/keys.index';
-import { errorHandler } from './middlewares/error-handler';
 import { NotFoundError } from './errors/not-found-error';
+import { errorHandler } from './middlewares/error-handler';
 import currentUserRouter from './routes/current-user';
 import signInRouter from './routes/signin';
 import signOutRouter from './routes/signout';
 import signUpRouter from './routes/signup';
-import cookieSession from 'cookie-session';
 
 const app = express();
 app.set('trust proxy', true);
@@ -33,15 +33,19 @@ app.all('*', async () => {
 app.use(errorHandler);
 
 const start = async () => {
+  if (!process.env.JWT_SECRET) {
+    throw new Error('JWT_SECRET must be defined.');
+  }
+
   try {
     await mongoose.connect('mongodb://auth-mongo-srv:27017/auth');
     console.log('Connected to MongoDB.');
   } catch (err) {
-    console.error(err);
+    console.error('MongoDB connection error: ', err);
   }
 
   app.listen(keys.PORT, () => {
-    console.log(`Server Auth is running at port ${keys.PORT}.`);
+    console.log(`Server AUTH is running at port ${keys.PORT}.`);
   });
 };
 
